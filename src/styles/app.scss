@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+@import "bootstrap/bootstrap";
+@import "spinner";
+@import "utils";
+@import "rtl";
+@import "responsive";
+
+.disabled {
+    .form-control, .custom-select {
+        background-color: #e9ecef;
+        opacity: 1;
+        pointer-events: none;
+        border: 1px solid #ced4da !important;
+        opacity: 0.5;
+        /deep/
+        .ng2-tag-input__text-input {
+            background-color: #e9ecef;
+            opacity: 1;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+    }
+    label {
+        opacity: 0.4;
+    }
+}

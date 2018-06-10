@@ -1,0 +1,5 @@
+<app-header></app-header>
+<app-sidebar #sideBar></app-sidebar>
+<section [style.marginLeft]="sideBar.iconOnly ? '100px' : '235px'" class="main-container">
+    <router-outlet></router-outlet>
+</section>

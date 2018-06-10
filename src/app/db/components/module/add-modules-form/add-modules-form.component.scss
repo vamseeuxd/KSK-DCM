@@ -1,0 +1,25 @@
+.body-scroll {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: 180px;
+    .list-group-item {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        padding: 5px 0px;
+    }
+}
+
+.head-scroll {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    .list-group-item {
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        padding: 5px 0px;
+    }
+}
+
+.disabled {
+    opacity: 0.3;
+    pointer-events: none;
+}

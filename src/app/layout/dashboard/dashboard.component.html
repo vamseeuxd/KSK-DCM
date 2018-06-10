@@ -1,0 +1,108 @@
+<div [@routerTransition]>
+    <h5 class="text-muted">Sri Durga Bhavani Medical Laboratory
+        <small>Mangalagiri</small>
+    </h5>
+    <hr>
+    <div *ngIf="false" class="row">
+        <div class="col-md-12">
+            <ngb-carousel>
+                <ng-template ngbSlide *ngFor="let slider of sliders">
+                    <img class="img-fluid mx-auto d-block" [src]="slider.imagePath" alt="Random first slide"
+                         width="100%">
+                    <div class="carousel-caption">
+                        <h3>{{slider.label}}</h3>
+                        <p>{{slider.text}}</p>
+                    </div>
+                </ng-template>
+            </ngb-carousel>
+        </div>
+    </div>
+    <hr *ngIf="false">
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <h4 class="col-12">Orders Status<a class="btn btn-link">form 26th May 2018</a><a class="btn btn-link">to 27th May 2018</a> </h4>
+                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+                    <div class="card text-white bg-danger mb-3">
+                        <div class="card-header">Pending Orders</div>
+                        <div class="card-body">
+                            <h4 class="card-title">15</h4>
+                            <p style="cursor: pointer;" class="card-text">More Details <i class="fa fa-external-link" aria-hidden="true"></i></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+                    <div class="card text-white bg-warning mb-3">
+                        <div class="card-header">Orders under Process</div>
+                        <div class="card-body">
+                            <h4 class="card-title">05</h4>
+                            <p style="cursor: pointer;" class="card-text">More Details <i class="fa fa-external-link" aria-hidden="true"></i></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+                    <div class="card text-white bg-success mb-3">
+                        <div class="card-header">Completed Orders</div>
+                        <div class="card-body">
+                            <h4 class="card-title">25</h4>
+                            <p style="cursor: pointer;" class="card-text">More Details <i class="fa fa-external-link" aria-hidden="true"></i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-10 offset-1">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Daily Sales Report for <a class="btn btn-link">'April-2018'</a> (Total Sales {{totalSales | number}})
+                </div>
+                <div class="card-body">
+                    <canvas baseChart
+                            [datasets]="barChartData"
+                            [labels]="barChartLabels"
+                            [options]="barChartOptions"
+                            [legend]="barChartLegend"
+                            [chartType]="barChartType">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    <ngb-alert [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}
+    </ngb-alert>
+    <hr/>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card card-default">
+                <div class="card-header">
+                    <i class="fa fa-clock-o fa-fw"></i> Responsive Timeline
+                </div>
+                &lt;!&ndash; /.card-header &ndash;&gt;
+                <app-timeline></app-timeline>
+                &lt;!&ndash; /.card-body &ndash;&gt;
+            </div>
+            &lt;!&ndash; /.card &ndash;&gt;
+        </div>
+        &lt;!&ndash; /.col-lg-8 &ndash;&gt;
+        <div class="col-lg-4">
+            <div class="card card-default mb-3">
+                <div class="card-header">
+                    <i class="fa fa-bell fa-fw"></i> Notifications card
+                </div>
+                &lt;!&ndash; /.card-header &ndash;&gt;
+                <app-notification></app-notification>
+                &lt;!&ndash; /.card-body &ndash;&gt;
+            </div>
+            &lt;!&ndash; /.card &ndash;&gt;
+
+            <app-chat></app-chat>
+            &lt;!&ndash; /.card .chat-card &ndash;&gt;
+        </div>
+        &lt;!&ndash; /.col-lg-4 &ndash;&gt;
+    </div>
+    -->
+</div>

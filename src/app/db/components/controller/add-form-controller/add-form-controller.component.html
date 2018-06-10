@@ -1,0 +1,22 @@
+<div class="modal-body">
+    <button type="button" class="close" aria-label="Close" (click)="closeModel('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+
+    <h6>
+        {{ isEdit ? 'Updating' : 'Adding new field '}}
+        <b *ngIf="isEdit" class="text-primary"> {{editingField}} field</b> for
+        <b class="text-primary">{{form?.title}} form</b> in
+        <b class="text-primary">{{module?.title}} Page</b>
+    </h6>
+
+    <app-ksk-dynamic-form
+        #myForm
+        class="col-12"
+        [primaryButtonLabel]="isEdit ? 'Update' : 'Add'"
+        (secondaryClick)="onCancelClick()"
+        (primaryClick)="onFormSave($event, myForm)"
+        [(formControls)]="formControls">
+    </app-ksk-dynamic-form>
+
+</div>

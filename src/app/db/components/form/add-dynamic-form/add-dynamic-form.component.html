@@ -1,0 +1,169 @@
+<div class="modal-body" style="padding: 10px;">
+    <button type="button" class="close" aria-label="Close" (click)="closeModel('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div>
+        <ngb-tabset #dcmTab>
+            <ngb-tab title="DCM Form Creator">
+                <ng-template ngbTabContent>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <app-ksk-dynamic-form #mainForm
+                                                  *ngIf="showMainForm"
+                                                  class="col-12 mt-2 offset-1"
+                                                  (primaryClick)="mainFormSave($event,mainForm)"
+                                                  [showPrimaryButton]="showMainPrimaryButton"
+                                                  [showSecondaryButton]="showMainSecondaryButton"
+                                                  (secondaryClick)="mainFormCancel($event,mainForm)"
+                                                  [primaryButtonLabel]="'Add New Form'"
+                                                  [formControls]="mainFormControls">
+                            </app-ksk-dynamic-form>
+                        </div>
+                        <div class="row" *ngIf="dcmForm.getItemByKey(formSelectController.value)">
+                            <data-table
+                                [title]="'Fields for '+ dcmForm.getItemByKey(formSelectController.value)?.title + ' Form'"
+                                class="col-10 offset-1"
+                                [limit]="5"
+                                [pageLimits]="[5,10,15,20]"
+                                [itemCount]="data.length"
+                                [indexColumn]="false"
+                                [items]="getFilteredData(formSelectController.value)">
+
+                                <!--Key Column-->
+                                <data-table-column [visible]="false"
+                                                   [property]="'key'"
+                                                   [header]="'Key'"></data-table-column>
+
+                                <!--Module Column-->
+                                <data-table-column [visible]="true"
+                                                   header="Module">
+                                    <ng-template #dataTableCell
+                                                 let-item="item">
+                                        {{dcmModule.getItemByKey(item['module'])?.title}}
+                                    </ng-template>
+                                </data-table-column>
+
+                                <!--Form Title Column-->
+                                <data-table-column [visible]="true"
+                                                   header="Form Title">
+                                    <ng-template #dataTableCell
+                                                 let-item="item">
+                                        {{dcmForm.getItemByKey(item['form'])?.title}}
+                                    </ng-template>
+                                </data-table-column>
+
+                                <!--Form Name Column-->
+                                <data-table-column [visible]="true"
+                                                   header="Form Name">
+                                    <ng-template #dataTableCell let-item="item">
+                                        {{dcmForm.getItemByKey(item['form'])?.name}}
+                                    </ng-template>
+                                </data-table-column>
+
+                                <!--Label Column-->
+                                <data-table-column [visible]="true"
+                                                   [property]="'label'"
+                                                   [header]="'Label'"></data-table-column>
+                                <!--Classes Column-->
+                                <data-table-column [visible]="false"
+                                                   [property]="'classes'"
+                                                   [header]="'Classes'"></data-table-column>
+                                <!--Value Column-->
+                                <data-table-column [visible]="false"
+                                                   [property]="'value'"
+                                                   [header]="'Value'"></data-table-column>
+                                <!--Label Field  Column-->
+                                <data-table-column [visible]="false"
+                                                   [property]="'labelField '"
+                                                   [header]="'Label Field '"></data-table-column>
+                                <!--Id Field  Column-->
+                                <data-table-column [visible]="false"
+                                                   [property]="'idField '"
+                                                   [header]="'Id Field '"></data-table-column>
+                                <!--Required Column-->
+                                <data-table-column [visible]="false"
+                                                   [property]="'required'"
+                                                   [header]="'Required'"></data-table-column>
+                                <!--Disabled Column-->
+                                <data-table-column [visible]="false"
+                                                   [property]="'disabled'"
+                                                   [header]="'Disabled'"></data-table-column>
+                                <!--Hide Column-->
+                                <data-table-column [visible]="false"
+                                                   [property]="'hide'"
+                                                   [header]="'Hide'"></data-table-column>
+                                <!--Custom Error Column-->
+                                <data-table-column [visible]="false"
+                                                   [property]="'customError'"
+                                                   [header]="'Custom Error'"></data-table-column>
+                                <!--Name Column-->
+                                <data-table-column [visible]="false"
+                                                   [property]="'name'"
+                                                   [header]="'Name'"></data-table-column>
+                                <!--Min Column-->
+                                <data-table-column [visible]="true"
+                                                   [property]="'min'"
+                                                   [header]="'Min'"></data-table-column>
+                                <!--Max Column-->
+                                <data-table-column [visible]="true"
+                                                   [property]="'max'"
+                                                   [header]="'Max'"></data-table-column>
+                                <!--Data Column-->
+                                <data-table-column [visible]="false"
+                                                   [property]="'data'"
+                                                   [header]="'Data'"></data-table-column>
+                                <!--Types Column-->
+                                <data-table-column [visible]="false"
+                                                   [property]="'types'"
+                                                   [header]="'Types'"></data-table-column>
+                                <!--Type Column-->
+                                <data-table-column [visible]="true"
+                                                   [property]="'type'"
+                                                   [header]="'Type'"></data-table-column>
+                                <!--Error Message Column-->
+                                <data-table-column [visible]="false"
+                                                   [property]="'errorMessage'"
+                                                   [header]="'Error Message'"></data-table-column>
+
+                                <!--Actions Column-->
+                                <data-table-column header="Actions">
+                                    <ng-template #dataTableCell
+                                                 let-item="item">
+                                        <button class="btn btn-sm btn-danger mr-2"
+                                                (click)="deleteController(item)">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-warning" (click)="editController(item)">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        </button>
+                                    </ng-template>
+                                </data-table-column>
+                            </data-table>
+                        </div>
+                        <div class="row" *ngIf="dcmForm.getItemByKey(formSelectController.value)">
+                            <button class="btn btn-primary offset-1 float-left" (click)="addNewFormField()"
+                                    [disabled]="disableDeleteButton">Add New Form Field
+                            </button>
+                            <button class="btn btn-danger ml-4 float-left" (click)="deleteForm()"
+                                    [disabled]="disableDeleteButton">Delete Form
+                            </button>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab title="DCM Form - Preview">
+                <ng-template ngbTabContent>
+                <div class="container-fluid">
+                    <div class="row">
+                        <h4 class="mt-3 mb-3">Form Preview</h4>
+                        <app-ksk-dynamic-form #resultTable
+                                              class="col-12"
+                                              [formControls]="getFilteredData(formSelectController.value)">
+                        </app-ksk-dynamic-form>
+                    </div>
+                </div>
+            </ng-template>
+            </ngb-tab>
+        </ngb-tabset>
+    </div>
+</div>

@@ -1,0 +1,216 @@
+<form [class]="'needs-validation' + isFormValidated" novalidate #sampleForm="ngForm">
+    <h5 *ngIf="title">{{title}}</h5>
+    <div class="form-row" *ngIf="!isDuplicatesFound">
+
+        <div *ngFor="let formControl of getFilteredList(formControls)" [class]="formControl.classes + (formControl.disabled ? ' disabled' : '')">
+
+            <!-- ******************************** Control Label ******************************** -->
+            <label [innerHTML]="formControl.label"></label>
+            <span *ngIf="formControl.required" class="text-danger"> * </span>
+            <!-- ******************************** Control Label ******************************** -->
+
+            <!-- ******************************** TEXT  ******************************** -->
+            <input [(ngModel)]="formControl.value"
+                   (keyup)="formControlsChange.emit(formControls);"
+                   (ngModelChange)="sampleForm.controls[formControl.name].valid ? formControl.onChange(formControl) : '';"
+                   [type]="formControl.type"
+                   [name]="formControl.name"
+                   [minlength]="formControl.min"
+                   [maxlength]="formControl.max"
+                   [readonly]="formControl.disabled"
+                   *ngIf="formControl.type === type.text"
+                   [class]="(formControl.customError? 'form-control is-invalid' : 'form-control')"
+                   [placeholder]="formControl.label"
+                   [required]="formControl.required">
+            <!-- ******************************** TEXT ******************************** -->
+
+            <!-- ******************************** DATE  ******************************** -->
+            <input [(ngModel)]="formControl.value"
+                   (change)="formControlsChange.emit(formControls);"
+                   (keyup)="formControlsChange.emit(formControls);"
+                   (ngModelChange)="sampleForm.controls[formControl.name].valid ? formControl.onChange(formControl) : '';"
+                   [readonly]="formControl.disabled"
+                   [type]="formControl.type"
+                   [name]="formControl.name"
+                   [min]="formControl.min"
+                   [max]="formControl.max"
+                   *ngIf="formControl.type === type.date"
+                   [class]="(formControl.customError? 'form-control is-invalid' : 'form-control')"
+                   [placeholder]="formControl.label"
+                   [required]="formControl.required">
+            <!-- ******************************** DATE ******************************** -->
+
+            <!-- ******************************** DATE-TIME  ******************************** -->
+            <input [(ngModel)]="formControl.value"
+                   (change)="formControlsChange.emit(formControls);"
+                   (keyup)="formControlsChange.emit(formControls);"
+                   (ngModelChange)="sampleForm.controls[formControl.name].valid ? formControl.onChange(formControl) : '';"
+                   [readonly]="formControl.disabled"
+                   [type]="formControl.type"
+                   [name]="formControl.name"
+                   [min]="formControl.min"
+                   [max]="formControl.max"
+                   *ngIf="formControl.type === type.datetime"
+                   [class]="(formControl.customError? 'form-control is-invalid' : 'form-control')"
+                   [placeholder]="formControl.label"
+                   [required]="formControl.required">
+            <!-- ******************************** DATE-TIME ******************************** -->
+
+            <!-- ******************************** EMAIL  ******************************** -->
+            <input [(ngModel)]="formControl.value"
+                   (keyup)="formControlsChange.emit(formControls);"
+                   (ngModelChange)="sampleForm.controls[formControl.name].valid ? formControl.onChange(formControl) : '';"
+                   [readonly]="formControl.disabled"
+                   [type]="formControl.type"
+                   [name]="formControl.name"
+                   *ngIf="formControl.type === type.email"
+                   [class]="(formControl.customError? 'form-control is-invalid' : 'form-control')"
+                   [placeholder]="formControl.label"
+                   [required]="formControl.required">
+            <!-- ******************************** EMAIL ******************************** -->
+
+            <!-- ******************************** FILE  ******************************** -->
+            <input [(ngModel)]="formControl.value"
+                   (change)="formControlsChange.emit(formControls);"
+                   (ngModelChange)="sampleForm.controls[formControl.name].valid ? formControl.onChange(formControl) : '';"
+                   [readonly]="formControl.disabled"
+                   type="file"
+                   [name]="formControl.name"
+                   *ngIf="formControl.type === type.file"
+                   [class]="isFileInputValid(formControl)"
+                   [accept]="formControl.types"
+                   (change)="onFileChange($event,formControl)"
+                   [placeholder]="formControl.label">
+            <!-- ******************************** FILE ******************************** -->
+
+            <!-- ******************************** MONTH  ******************************** -->
+            <input [(ngModel)]="formControl.value"
+                   (change)="formControlsChange.emit(formControls);"
+                   (ngModelChange)="sampleForm.controls[formControl.name].valid ? formControl.onChange(formControl) : '';"
+                   [readonly]="formControl.disabled"
+                   [type]="formControl.type"
+                   [name]="formControl.name"
+                   *ngIf="formControl.type === type.month"
+                   [min]="formControl.min"
+                   [max]="formControl.max"
+                   [class]="(formControl.customError? 'form-control is-invalid' : 'form-control')"
+                   [placeholder]="formControl.label"
+                   [required]="formControl.required">
+            <!-- ******************************** MONTH ******************************** -->
+
+            <!-- ******************************** NUMBER  ******************************** -->
+            <input [(ngModel)]="formControl.value"
+                   (keyup)="formControlsChange.emit(formControls);"
+                   (ngModelChange)="sampleForm.controls[formControl.name].valid ? formControl.onChange(formControl) : '';"
+                   [readonly]="formControl.disabled"
+                   [type]="formControl.type"
+                   [name]="formControl.name"
+                   *ngIf="formControl.type === type.number"
+                   [min]="formControl.min"
+                   [max]="formControl.max"
+                   [class]="(formControl.customError? 'form-control is-invalid' : 'form-control')"
+                   [placeholder]="formControl.label"
+                   [required]="formControl.required">
+            <!-- ******************************** NUMBER ******************************** -->
+
+            <!-- ******************************** PASSWORD  ******************************** -->
+            <input [(ngModel)]="formControl.value"
+                   (keyup)="formControlsChange.emit(formControls);"
+                   (ngModelChange)="sampleForm.controls[formControl.name].valid ? formControl.onChange(formControl) : '';"
+                   [readonly]="formControl.disabled"
+                   [type]="formControl.type"
+                   [name]="formControl.name"
+                   *ngIf="formControl.type === type.password"
+                   [class]="(formControl.customError? 'form-control is-invalid' : 'form-control')"
+                   [placeholder]="formControl.label"
+                   [required]="formControl.required">
+            <!-- ******************************** PASSWORD ******************************** -->
+
+            <!-- ******************************** TAGS  ******************************** -->
+            <div *ngIf="formControl.type===type.tags" [class]="isTagsGroupValid(formControl)">
+            <tag-input [(ngModel)]="formControl.value"
+                       (change)="formControlsChange.emit(formControls);"
+                       (ngModelChange)="sampleForm.controls[formControl.name].valid ? formControl.onChange(formControl) : '';"
+                       [disable]="formControl.disabled"
+                       [name]="formControl.name"
+                       [placeholder]="formControl.label"
+                       [required]="formControl.required"></tag-input>
+            </div>
+            <!-- ******************************** TAGS ******************************** -->
+
+            <!-- ******************************** SELECT ******************************** -->
+            <select [(ngModel)]="formControl.value"
+                    (change)="formControlsChange.emit(formControls);"
+                    (ngModelChange)="sampleForm.controls[formControl.name].valid ? formControl.onChange(formControl) : '';"
+                    (change)="formControl.onChange(formControl);"
+                    class="custom-select"
+                    [name]="formControl.name"
+                    *ngIf="formControl.type===type.select"
+                    [required]="formControl.required">
+                <option *ngFor="let item of formControl.data"
+                        [value]="item[formControl.idField]"
+                        [disabled]="formControl.disabled"
+                        [id]="item[formControl.labelField]+'_'+item[formControl.idField]">
+                    {{item[formControl.labelField]}}
+                </option>
+            </select>
+            <!-- ******************************** SELECT ******************************** -->
+
+            <!-- ******************************** CHECK BOX ******************************** -->
+            <div *ngIf="formControl.type===type.checkbox" [class]="isCheckBoxValid(formControl)">
+                <div class="form-check form-check-inline" *ngFor="let item of formControl.data">
+                    <label class="form-check-label">
+                        <input [value]="item[formControl.idField]"
+                               [(ngModel)]="item.isSelected"
+                               [readonly]="formControl.disabled"
+                               class="form-check-input"
+                               (change)="updateCheckBoxValue(formControl,item);"
+                               (ngModelChange)="formControl.onChange(formControl);"
+                               [required]="formControl.required"
+                               [type]="formControl.type"
+                               name="{{formControl.name}}">
+                        {{item[formControl.labelField]}}
+                    </label>
+                </div>
+            </div>
+            <!-- ******************************** CHECK BOX ******************************** -->
+
+            <!-- ******************************** RADIO BOX ******************************** -->
+            <div *ngIf="formControl.type===type.radio" [class]="isRadioGroupValid(formControl)">
+                <div class="form-check form-check-inline" *ngFor="let item of formControl.data">
+                    <label class="form-check-label">
+                        <input [value]="item[formControl.idField]"
+                               [(ngModel)]="formControl.value"
+                               class="form-check-input"
+                               [readonly]="formControl.disabled"
+                               (change)="updateCheckBoxValue(formControl,item);"
+                               (ngModelChange)="formControl.onChange(formControl);"
+                               [required]="formControl.required"
+                               type="radio"
+                               name="{{formControl.name}}">
+                        {{item[formControl.labelField]}}
+                    </label>
+                </div>
+            </div>
+            <!-- ******************************** RADIO BOX ******************************** -->
+
+            <!-- ******************************** ERROR MESSAGES ******************************** -->
+            <small *ngIf="this.isFormValidated !== ' was-validated' && (!formControl.disabled && !formControl.hide)" [innerHTML]="getHelpText(formControl)" class="form-text text-muted"></small>
+
+            <small class="invalid-feedback" *ngIf="(!formControl.disabled && !formControl.hide && !formControl.customError)" [innerHTML]="getErrorMessage(formControl)"></small>
+
+            <small class="text-danger" *ngIf="formControl.customError" [innerHTML]="formControl.customError"></small>
+            <!-- ******************************** ERROR MESSAGES ******************************** -->
+
+        </div>
+    </div>
+
+    <button *ngIf="!isDuplicatesFound && showPrimaryButton" class="btn btn-primary mt-4" (click)="primaryButtonClick(isValid)" type="button">{{primaryButtonLabel}}</button>
+    <button *ngIf="!isDuplicatesFound && showSecondaryButton" class="btn btn-secondary ml-3 mt-4" (click)="secondaryButtonClick(isValid)" type="button">{{secondaryButtonLabel}}</button>
+    <h4 style="text-align: center;margin: 40px 0px;" *ngIf="isDuplicatesFound">
+        Duplicate name(s) are not allowed, below duplicate name(s) are exists.
+        <br>
+        {{duplicateControllerName|json}}
+    </h4>
+
+</form>

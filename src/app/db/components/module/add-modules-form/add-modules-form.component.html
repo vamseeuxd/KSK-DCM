@@ -1,0 +1,48 @@
+<div class="modal-header">
+    <h4 class="modal-title">Add or Update Modules</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModel('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <app-ksk-dynamic-form
+            #myForm
+            class="col-10 offset-1"
+            [primaryButtonLabel]="saveButtonLabel"
+            (secondaryClick)="onCancelClick(myForm)"
+            (primaryClick)="onFormSave($event, myForm)"
+            [(formControls)]="formControls">
+        </app-ksk-dynamic-form>
+    </div>
+    <div class="row">
+        <!--<pre>{{(list|async)|json}}</pre>-->
+        <ul class="list-group mt-5 col-10 offset-1 head-scroll">
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-5 text-center border border-primary border-top-0 border-bottom-0 border-left-0"><label class="font-weight-bold">Title</label></div>
+                    <div class="col-5 text-center border border-primary border-top-0 border-bottom-0 border-left-0"><label class="font-weight-bold">Icon</label></div>
+                    <!--<div class="col-3 text-center border border-primary border-top-0 border-bottom-0 border-left-0"><label class="text-center">Added On</label></div>-->
+                    <div class="col-2 text-center"><label class="font-weight-bold">Action</label></div>
+                </div>
+            </li>
+        </ul>
+        <ul class="list-group col-10 offset-1 body-scroll">
+            <li *ngFor="let module of (dcmModuleDb.get()|async)" class="list-group-item">
+                <div class="row">
+                    <div class="col-5 text-center border border-primary border-top-0 border-bottom-0 border-left-0">
+                        <label class="text-center">{{module.title}}</label>
+                    </div>
+                    <div class="col-5 text-center border border-primary border-top-0 border-bottom-0 border-left-0">
+                        <label class="text-center"><i (click)="deleteModule(module)" style="cursor: pointer;" [class]="module.icon"></i> - {{module.icon}}</label>
+                    </div>
+                    <div class="col-2 text-center"><label class="text-center">
+                        <i (click)="deleteModule(module)" style="cursor: pointer;" [class]="saveButtonLabel === 'Update Module' ? 'disabled fa fa-trash-o' : 'fa fa-trash-o'"></i>
+                        &nbsp;&nbsp;&nbsp;
+                        <i (click)="editModule(module)" style="cursor: pointer;" [class]="saveButtonLabel === 'Update Module' ? 'disabled fa fa-edit' : 'fa fa-edit'"></i>
+                    </label></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
