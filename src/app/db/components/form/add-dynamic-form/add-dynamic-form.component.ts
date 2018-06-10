@@ -53,6 +53,7 @@ export class AddDynamicFormComponent {
         this.dcmFormControls.get().subscribe(controls => {
             this.data.splice(0, this.data.length);
             this.data.push(...controls);
+            debugger;
         });
     }
 

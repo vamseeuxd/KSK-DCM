@@ -300,7 +300,21 @@ export class AddFormControllerComponent implements OnInit {
                 formControl.value = splitString.join('');
             }
             if (this.form) {
-                if (this.editingFieldOptions.name !== this.nameController.value) {
+                if (this.isEdit) {
+                    if (this.editingFieldOptions.name !== this.nameController.value) {
+                        this.allControlsInForm.splice(0, this.allControlsInForm.length);
+                        this.allControlsInForm.push(...this.dcmFormControls.getFormsByProp('form', this.form.key));
+                        if (this.allControlsInForm.filter(item => {
+                            return item.name.toLowerCase().trim() === this.nameController.value.toLowerCase().trim();
+                        }).length > 0) {
+                            this.nameController.customError = 'Duplicate name found. ' + this.nameController.value + ' Exists';
+                        } else {
+                            this.nameController.customError = '';
+                        }
+                    } else {
+                        this.nameController.customError = '';
+                    }
+                } else {
                     this.allControlsInForm.splice(0, this.allControlsInForm.length);
                     this.allControlsInForm.push(...this.dcmFormControls.getFormsByProp('form', this.form.key));
                     if (this.allControlsInForm.filter(item => {
@@ -310,9 +324,8 @@ export class AddFormControllerComponent implements OnInit {
                     } else {
                         this.nameController.customError = '';
                     }
-                } else {
-                    this.nameController.customError = '';
                 }
+
             }
         };
     }

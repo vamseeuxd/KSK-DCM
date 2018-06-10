@@ -10,7 +10,7 @@ import {FormController} from '../../../shared/modules/ksk-dynamic-form/form-cont
 })
 export class DcmFormControlsDbService {
 
-    private listRef: AngularFireList<FormController>;
+    private listRef: AngularFireList<any>;
     private list$: Observable<any[]>;
     private list: FormController[] = [];
 
@@ -18,7 +18,9 @@ export class DcmFormControlsDbService {
         this.listRef = this.db.list(DbConstants.DCM_FORM_CONTROLS);
         this.list$ = this.listRef.snapshotChanges().pipe(
             map(changes =>
-                changes.map(c => ({key: c.payload.key, ...c.payload.val()}))
+                changes.map(c => {
+                    return {key: c.payload.key, ...c.payload.val()};
+                })
             )
         );
         this.list$.subscribe(forms => {
