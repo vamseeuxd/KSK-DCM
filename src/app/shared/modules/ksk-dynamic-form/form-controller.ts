@@ -3,6 +3,7 @@ import {MenuItem} from './menu-item';
 
 export class FormController {
     public key: string;
+    public index: number;
     public form: string;
     public module: string;
     public label: string;

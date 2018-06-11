@@ -398,6 +398,7 @@ export class AddFormControllerComponent implements OnInit {
         if (this.isEdit) {
             this.dcmFormControls.updateItem(newFormField);
         } else {
+            newFormField.index = this.dcmFormControls.getFormsByProp('form', this.form.key).length;
             this.dcmFormControls.addItem(newFormField);
         }
         this.onCancelClick();

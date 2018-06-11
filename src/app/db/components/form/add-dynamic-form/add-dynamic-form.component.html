@@ -35,7 +35,7 @@
                                                    [header]="'Key'"></data-table-column>-->
 
                                 <!--Module Column-->
-                                <data-table-column [visible]="true"
+                                <data-table-column [visible]="false"
                                                    header="Module">
                                     <ng-template #dataTableCell
                                                  let-item="item">
@@ -44,7 +44,7 @@
                                 </data-table-column>
 
                                 <!--Form Title Column-->
-                                <data-table-column [visible]="true"
+                                <data-table-column [visible]="false"
                                                    header="Form Title">
                                     <ng-template #dataTableCell
                                                  let-item="item">
@@ -126,15 +126,20 @@
                                                    [header]="'Error Message'"></data-table-column>
 
                                 <!--Actions Column-->
-                                <data-table-column header="Actions">
+                                <data-table-column header="Actions" [width]="'200px'">
                                     <ng-template #dataTableCell
                                                  let-item="item">
-                                        <button class="btn btn-sm btn-danger mr-2"
-                                                (click)="deleteController(item)">
+                                        <button class="btn btn-sm btn-danger mr-2" (click)="deleteController(item)">
                                             <i class="fa fa-trash-o" aria-hidden="true"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-warning" (click)="editController(item)">
+                                        <button class="btn btn-sm btn-warning mr-2" (click)="editController(item)">
                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-info mr-2">
+                                            <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-info">
+                                            <i class="fa fa-arrow-down" aria-hidden="true"></i>
                                         </button>
                                     </ng-template>
                                 </data-table-column>

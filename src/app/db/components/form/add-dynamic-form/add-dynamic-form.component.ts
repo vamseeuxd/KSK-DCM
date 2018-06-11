@@ -252,7 +252,7 @@ export class AddDynamicFormComponent {
         if (isConfirm) {
 
             this.getFilteredData(this.formSelectController.value).forEach(formControl => {
-                this.deleteController(formControl);
+                this.dcmFormControls.deleteItem(formControl);
             });
 
             this.dcmForm.deleteItem({key: this.formSelectController.value, name: '', title: '', time: '', module: ''});
