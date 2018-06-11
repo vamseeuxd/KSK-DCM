@@ -1,1 +1,21 @@
-<h1>Test Page {{currentModule}}</h1>
+<h5>Test Page {{currentModule}}</h5>
+<div class="col-10 offset-1 mt-4">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Column One      <input name="Col-1" class="form-control" type="text" [(ngModel)]="value1"></th>
+            <th>Column Two      <input name="Col-2" class="form-control" type="text" [(ngModel)]="value2"></th>
+            <th>Column Three    <input name="Col-3" class="form-control" type="text" [(ngModel)]="value3"></th>
+            <th>Column Four     <input name="Col-4" class="form-control" type="text" [(ngModel)]="value4"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let row of data | gridFilter : getFilterConfig()">
+            <td>{{row['Col-1']}}</td>
+            <td>{{row['Col-2']}}</td>
+            <td>{{row['Col-3']}}</td>
+            <td>{{row['Col-4']}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

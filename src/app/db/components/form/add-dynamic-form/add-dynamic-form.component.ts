@@ -15,7 +15,7 @@ import {AddFormControllerComponent} from '../../controller/add-form-controller/a
 export class AddDynamicFormComponent {
 
     public mainFormControls: FormController[] = [];
-    public data: FormController[] = [];
+    public data: any = [];
     public showMainPrimaryButton = false;
     public showMainSecondaryButton = false;
     public showMainForm = false;
@@ -25,19 +25,6 @@ export class AddDynamicFormComponent {
     public formSelectController: FormController;
     public newFormTitleController: FormController;
     public newFormNameController: FormController;
-
-    public labelController: FormController;
-    public desktopWidthController: FormController;
-    public tabWidthController: FormController;
-    public mobileWidthController: FormController;
-    public requiredController: FormController;
-    public nameController: FormController;
-    public minValueController: FormController;
-    public maxValueController: FormController;
-    public minDateController: FormController;
-    public maxDateController: FormController;
-    public dataController: FormController;
-    public typesController: FormController;
     private isMainFormSave = false;
     public disableDeleteButton = true;
     private allFormsInModule: IDcmForm[] = [];
@@ -52,7 +39,9 @@ export class AddDynamicFormComponent {
         this.initializeMainFormControls();
         this.dcmFormControls.get().subscribe(controls => {
             this.data.splice(0, this.data.length);
-            this.data.push(...controls);
+            this.data.push(...controls.map(item => this.dcmFormControls.convertIDcmForcontrolToFormController(item)));
+            // this.data.push(...controls);
+            console.log(this.data);
         });
     }
 
@@ -130,7 +119,10 @@ export class AddDynamicFormComponent {
             data: null
         });
         this.newFormTitleController.onChange = formControl => {
-            if (this.allFormsInModule.filter(item => item.title.toLowerCase() === formControl.value.toLowerCase()).length > 0) {
+            if (this.allFormsInModule.filter(item => {
+                console.log(item.title.toLowerCase() === formControl.value.toLowerCase(), formControl.value.toLowerCase(), item.title.toLowerCase());
+                return item.title.toLowerCase() === formControl.value.toLowerCase();
+            }).length > 0) {
                 formControl.customError = 'Duplicate Title found.' + formControl.value + ' Exists';
             } else {
                 formControl.customError = '';
@@ -224,7 +216,10 @@ export class AddDynamicFormComponent {
     }
 
     deleteController(item: FormController) {
-        this.dcmFormControls.deleteItem(item);
+        const isConfirm = window.confirm('Are you sure! do you want to delete Form Field?');
+        if (isConfirm) {
+            this.dcmFormControls.deleteItem(item);
+        }
     }
 
     mainFormSave($event: FormController[], mainForm) {

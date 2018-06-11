@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
-        setTimeout(this.openAddFormModel.bind(this), 50);
+        // setTimeout(this.openAddFormModel.bind(this), 50);
         // this.openAddFormModel();
         // this.openAddFormControllerModel();
         // this.openAddFormModel();

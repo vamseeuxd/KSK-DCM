@@ -3,6 +3,7 @@ import {DbConstants} from '../../../shared/DB_CONSTANTS';
 import {Observable} from 'rxjs/Rx';
 import {map} from 'rxjs/internal/operators';
 import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
+import {FormController, FormControllerType} from '../../../shared/modules';
 
 @Injectable({
     providedIn: 'root'
@@ -41,11 +42,53 @@ export class DcmFormControlsDbService {
     }
 
     updateItem(dcmFormControl: IDcmFormControl) {
-        this.listRef.update(dcmFormControl.key, dcmFormControl);
+        const _key = JSON.parse(JSON.stringify(dcmFormControl.key));
+        delete dcmFormControl.key;
+        this.listRef.update(_key, dcmFormControl);
     }
 
     public getFormsByProp(prop: string, value: string): IDcmFormControl[] {
         return this.list.filter(form => form[prop] === value);
+    }
+
+    public convertIDcmForcontrolToFormController(item: IDcmFormControl): FormController {
+        let newFormConroll: FormController;
+        newFormConroll = new FormController(
+            {
+                label: item.label,
+                value: item.value,
+                classes: item.classes,
+                required: item.required,
+                disabled: item.disabled,
+                name: item.name,
+                data: item.data,
+                type: item.type,
+                hide: item.hide,
+                min: item.min,
+                max: item.max,
+                types: item.types,
+                labelField: item.labelField,
+                idField: item.idField,
+            }
+        );
+        newFormConroll.key          = item.key ? item.key : '';
+        newFormConroll.form         = item.form ? item.form : '';
+        newFormConroll.module       = item.module ? item.module : '';
+        newFormConroll.label        = item.label ? item.label : '';
+        newFormConroll.classes      = item.classes ? item.classes : '';
+        newFormConroll.value        = item.value ? item.value : '';
+        newFormConroll.labelField   = item.labelField ? item.labelField : '';
+        newFormConroll.idField      = item.idField ? item.idField : '';
+        newFormConroll.required     = item.required;
+        newFormConroll.disabled     = item.disabled;
+        newFormConroll.hide         = item.hide;
+        newFormConroll.name         = item.name ? item.name : '';
+        newFormConroll.min          = item.min ? item.min : '';
+        newFormConroll.max          = item.max ? item.max : '';
+        newFormConroll.data         = item.data ? item.data : [];
+        newFormConroll.types        = item.types ? item.types : [];
+        newFormConroll.type         = item.type as FormControllerType;
+        return newFormConroll;
     }
 
     deleteItem(dcmFormControl: IDcmFormControl) {
@@ -76,4 +119,5 @@ export interface IDcmFormControl {
     data: { id: string; display: string; isSelected: boolean }[];
     types: string[];
     type: string;
+    errorMessage: string;
 }

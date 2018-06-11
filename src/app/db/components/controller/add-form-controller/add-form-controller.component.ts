@@ -53,7 +53,7 @@ export class AddFormControllerComponent implements OnInit {
             this.form = this.dcmForm.getItemByKey(this.selectedForm);
             this.module = this.dcmModule.getItemByKey(this.form.module);
             this.data.splice(0, this.data.length);
-            this.data.push(...controls);
+            this.data.push(...controls.map(item => this.dcmFormControls.convertIDcmForcontrolToFormController(item)));
         });
         this.editingKey = '';
         if (isEdit) {
@@ -303,7 +303,7 @@ export class AddFormControllerComponent implements OnInit {
                 if (this.isEdit) {
                     if (this.editingFieldOptions.name !== this.nameController.value) {
                         this.allControlsInForm.splice(0, this.allControlsInForm.length);
-                        this.allControlsInForm.push(...this.dcmFormControls.getFormsByProp('form', this.form.key));
+                        this.allControlsInForm.push(...this.dcmFormControls.getFormsByProp('form', this.form.key).map(item => this.dcmFormControls.convertIDcmForcontrolToFormController(item)));
                         if (this.allControlsInForm.filter(item => {
                             return item.name.toLowerCase().trim() === this.nameController.value.toLowerCase().trim();
                         }).length > 0) {
@@ -316,7 +316,7 @@ export class AddFormControllerComponent implements OnInit {
                     }
                 } else {
                     this.allControlsInForm.splice(0, this.allControlsInForm.length);
-                    this.allControlsInForm.push(...this.dcmFormControls.getFormsByProp('form', this.form.key));
+                    this.allControlsInForm.push(...this.dcmFormControls.getFormsByProp('form', this.form.key).map(item => this.dcmFormControls.convertIDcmForcontrolToFormController(item)));
                     if (this.allControlsInForm.filter(item => {
                         return item.name.toLowerCase().trim() === this.nameController.value.toLowerCase().trim();
                     }).length > 0) {
