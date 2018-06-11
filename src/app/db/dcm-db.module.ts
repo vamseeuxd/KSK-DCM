@@ -10,6 +10,7 @@ import {DataTableModule} from 'angular5-data-table';
 import {NgbTabsetModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
 import { AddFormControllerComponent } from './components/controller/add-form-controller/add-form-controller.component';
+import {NgPipesModule} from 'ngx-pipes';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import { AddFormControllerComponent } from './components/controller/add-form-con
         KskDynamicFormModule,
         DataTableModule,
         NgbTabsetModule,
-        FormsModule
+        FormsModule,
+        NgPipesModule
     ],
     declarations: [
         AddDynamicFormComponent,

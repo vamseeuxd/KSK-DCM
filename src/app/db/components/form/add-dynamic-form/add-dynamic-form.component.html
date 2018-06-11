@@ -27,7 +27,7 @@
                                 [pageLimits]="[5,10,15,20]"
                                 [itemCount]="data.length"
                                 [indexColumn]="false"
-                                [items]="getFilteredData(formSelectController.value)">
+                                [items]="getFilteredData(formSelectController.value) | orderBy: 'index'">
 
                                 <!--Key Column-->
                                 <!--<data-table-column [visible]="true"
@@ -59,6 +59,11 @@
                                         {{dcmForm.getItemByKey(item['form'])?.name}}
                                     </ng-template>
                                 </data-table-column>
+
+                                <!--Index Column-->
+                                <data-table-column [visible]="true"
+                                                   [property]="'index'"
+                                                   [header]="'Index'"></data-table-column>
 
                                 <!--Label Column-->
                                 <data-table-column [visible]="true"
@@ -135,12 +140,13 @@
                                         <button class="btn btn-sm btn-warning mr-2" (click)="editController(item)">
                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-info mr-2">
+                                        <button class="btn btn-sm btn-info mr-2" [disabled]="item.index==0" (click)="moveUp(item, true)">
                                             <i class="fa fa-arrow-up" aria-hidden="true"></i>
                                         </button>
-                                        <button class="btn btn-sm btn-info">
+                                        <button class="btn btn-sm btn-info" (click)="moveUp(item, false)" [disabled]="item.index==(getFilteredData(formSelectController.value).length-1)">
                                             <i class="fa fa-arrow-down" aria-hidden="true"></i>
                                         </button>
+                                        <!--<div><pre>{{item|json}}</pre></div>-->
                                     </ng-template>
                                 </data-table-column>
                             </data-table>
@@ -163,7 +169,7 @@
                         <h4 class="mt-3 mb-3">Form Preview</h4>
                         <app-ksk-dynamic-form #resultTable
                                               class="col-12"
-                                              [formControls]="getFilteredData(formSelectController.value)">
+                                              [formControls]="getFilteredData(formSelectController.value) | orderBy: 'index'">
                         </app-ksk-dynamic-form>
                     </div>
                 </div>

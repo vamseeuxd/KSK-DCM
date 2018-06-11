@@ -276,4 +276,20 @@ export class AddDynamicFormComponent {
         });
         addFormControllerModal.componentInstance.setData(this.formSelectController.value, true, item);
     }
+
+    moveUp(item: FormController, isUp: boolean) {
+        const allItems = this.getFilteredData(this.formSelectController.value);
+        let sourceItem: FormController;
+        if (isUp) {
+            sourceItem = allItems.filter(_item => _item.index === item.index - 1)[0];
+            sourceItem.index = item.index;
+            item.index = item.index - 1;
+        } else {
+            sourceItem = allItems.filter(_item => _item.index === item.index + 1)[0];
+            sourceItem.index = item.index;
+            item.index = item.index + 1;
+        }
+        this.dcmFormControls.updateItem(sourceItem);
+        this.dcmFormControls.updateItem(item);
+    }
 }
